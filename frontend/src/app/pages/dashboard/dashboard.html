@@ -1,0 +1,212 @@
+<div class="dashboard">
+  <header class="dashboard-header">
+    <div>
+      <p class="eyebrow">Panel de seguimiento</p>
+
+      <h1>DevTrack</h1>
+
+      <p class="subtitle">
+        Controla el estado de tus candidaturas de un vistazo.
+      </p>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-message">
+      Cargando candidaturas...
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (successMessage()) {
+    <div class="success-message">
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (stats()) {
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span class="stat-label">Total</span>
+        <strong>{{ stats()!.total }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Solicitadas</span>
+        <strong>{{ stats()!.applied }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Entrevistas</span>
+        <strong>{{ stats()!.interview }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Pruebas técnicas</span>
+        <strong>{{ stats()!.technicalTest }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Ofertas</span>
+        <strong>{{ stats()!.offer }}</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Rechazadas</span>
+        <strong>{{ stats()!.rejected }}</strong>
+      </article>
+    </section>
+  }
+
+  <section class="applications-section">
+    <div class="section-header">
+      <h2>Candidaturas</h2>
+
+      <a
+        class="new-application-button"
+        routerLink="/applications/new"
+      >
+        Nueva candidatura
+      </a>
+    </div>
+
+    <div class="filters">
+      <input
+        type="text"
+        placeholder="Buscar empresa..."
+        [value]="companySearch()"
+        (input)="companySearch.set($any($event.target).value)"
+      />
+
+      <select
+        [value]="selectedStatus()"
+        (change)="selectedStatus.set($any($event.target).value)"
+      >
+        <option value="">Todos los estados</option>
+        <option value="PENDING">Pendiente</option>
+        <option value="APPLIED">Solicitada</option>
+        <option value="INTERVIEW">Entrevista</option>
+        <option value="TECHNICAL_TEST">Prueba técnica</option>
+        <option value="OFFER">Oferta</option>
+        <option value="REJECTED">Rechazada</option>
+      </select>
+
+      <button
+        type="button"
+        (click)="loadApplications()"
+        [disabled]="!selectedStatus() && !companySearch()"
+      >
+        Filtrar
+      </button>
+
+      <button
+        type="button"
+        class="secondary"
+        (click)="clearFilters()"
+      >
+        Limpiar
+      </button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Puesto</th>
+            <th>Estado</th>
+            <th>Modalidad</th>
+            <th>Fecha</th>
+            <th>Tecnologías</th>
+            <th>URL</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (application of applications(); track application.id) {
+            <tr>
+              <td class="company">
+                {{ application.company }}
+              </td>
+
+              <td>
+                {{ application.position }}
+              </td>
+
+              <td>
+                <span [ngClass]="getStatusClass(application.status)">
+                  {{ getStatusLabel(application.status) }}
+                </span>
+              </td>
+
+              <td>
+                {{ getWorkModeLabel(application.workMode) }}
+              </td>
+
+              <td>
+                {{ application.applicationDate | date:'dd/MM/yyyy' }}
+              </td>
+
+              <td>
+                {{ application.technologies }}
+              </td>
+
+              <td>
+                @if (application.offerUrl) {
+                  <a
+                    class="offer-link"
+                    [href]="application.offerUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ver oferta
+                  </a>
+                } @else {
+                  -
+                }
+              </td>
+
+              <td>
+                <div class="actions">
+                  <a
+                    class="edit-button"
+                    [routerLink]="[
+                      '/applications',
+                      application.id,
+                      'edit'
+                    ]"
+                  >
+                    Editar
+                  </a>
+
+                  <button
+                    type="button"
+                    class="delete-button"
+                    (click)="deleteApplication(application.id!)"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td
+                colspan="8"
+                class="empty-state"
+              >
+                Todavía no hay candidaturas.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

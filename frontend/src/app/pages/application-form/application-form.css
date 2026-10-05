@@ -1,0 +1,88 @@
+.form-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+}
+
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.form-card textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-card button {
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.form-card button:hover {
+    opacity: 0.9;
+}
+
+.form-card button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form-card .cancel-button {
+    background: #e5e7eb;
+    color: #172033;
+    margin-left: 8px;
+}
+
+.form-card .cancel-button:hover {
+    background: #d1d5db;
+    opacity: 1;
+}
+
+.success-message {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #7f1d1d;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

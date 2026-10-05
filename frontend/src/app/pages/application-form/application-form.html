@@ -1,0 +1,56 @@
+<div class="form-wrapper">
+  @if (isEditing()) {
+  <h2>Editar candidatura</h2>
+  } @else {
+  <h2>Nueva candidatura</h2>
+  }
+
+  <div class="form-card">
+    @if (successMessage()) {
+    <p class="success-message">{{ successMessage() }}</p>
+    }
+
+    @if (errorMessage()) {
+    <p class="error-message">{{ errorMessage() }}</p>
+    }
+    <input type="text" placeholder="Nombre de la empresa" [value]="company()"
+      (input)="company.set($any($event.target).value)">
+    <input type="text" placeholder="Puesto" [value]="position()" (input)="position.set($any($event.target).value)">
+    <select [value]="status()" (change)="status.set($any($event.target).value)">
+      <option value="">Selecciona un estado</option>
+      <option value="PENDING">Pendiente</option>
+      <option value="APPLIED">Solicitada</option>
+      <option value="INTERVIEW">Entrevista</option>
+      <option value="TECHNICAL_TEST">Prueba técnica</option>
+      <option value="OFFER">Oferta</option>
+      <option value="REJECTED">Rechazada</option>
+    </select>
+    <select [value]="workMode()" (change)="workMode.set($any($event.target).value)">
+      <option value="">Selecciona un modo de trabajo</option>
+      <option value="REMOTE">Remoto</option>
+      <option value="ONSITE">Presencial</option>
+      <option value="HYBRID">Híbrido</option>
+    </select>
+    <input type="text" placeholder="Tecnologías (separadas por comas)" [value]="technologies()"
+      (input)="technologies.set($any($event.target).value)">
+    <input type="date" placeholder="Fecha de aplicación" [value]="applicationDate()"
+      (input)="applicationDate.set($any($event.target).value)">
+    <input type="url" placeholder="Enlace a la vacante" [value]="offerUrl()"
+      (input)="offerUrl.set($any($event.target).value)">
+    <textarea placeholder="Notas adicionales" [value]="notes()"
+      (input)="notes.set($any($event.target).value)"></textarea>
+    <button type="button" (click)="submitApplication()"
+      [disabled]="!company() || !position() || !status() || !workMode() || !applicationDate()">
+      {{ isEditing() ? 'Actualizar' : 'Guardar' }}
+    </button>
+    @if (isEditing()) {
+    <button type="button" class="cancel-button" (click)="cancelEdit()">
+      Cancelar edición
+    </button>
+    }
+
+    <a class="back-link" routerLink="/">
+      ← Volver al dashboard
+    </a>
+  </div>
+</div>

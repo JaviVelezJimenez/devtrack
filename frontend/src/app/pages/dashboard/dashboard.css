@@ -1,8 +1,17 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f4f7fb;
   color: #172033;
+
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.16), transparent 30%),
+    linear-gradient(
+      135deg,
+      #eef4ff 0%,
+      #f8fafc 50%,
+      #eef2ff 100%
+    );
 }
 
 .dashboard {
@@ -43,19 +52,34 @@ h1 {
 }
 
 .stat-card {
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.55);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 18px;
+
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+  transform: translateY(-4px);
+
+  background: rgba(255, 255, 255, 0.68);
+
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .stat-label {
@@ -109,10 +133,18 @@ h1 {
 
 .table-wrapper {
   overflow-x: auto;
-  background: white;
-  border: 1px solid #e5e7eb;
+
+  background: rgba(255, 255, 255, 0.58);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 table {
@@ -124,7 +156,7 @@ th,
 td {
   padding: 18px 20px;
   text-align: left;
-  border-bottom: 1px solid #eef2f7;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.75);
 }
 
 th {
@@ -132,7 +164,8 @@ th {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #667085;
-  background: #f8fafc;
+
+  background: rgba(248, 250, 252, 0.72);
 }
 
 td {
@@ -143,8 +176,12 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
+tbody tr {
+  transition: background-color 0.2s ease;
+}
+
 tbody tr:hover {
-  background: #f8fafc;
+  background: rgba(248, 250, 252, 0.65);
 }
 
 @media (max-width: 700px) {
@@ -190,15 +227,42 @@ tbody tr:hover {
   gap: 12px;
   margin-bottom: 18px;
   flex-wrap: wrap;
+
+  padding: 14px;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
 }
 
 .filters input,
 .filters select {
   padding: 12px 14px;
-  border: 1px solid #d0d5dd;
+
+  border: 1px solid rgba(208, 213, 221, 0.8);
   border-radius: 10px;
+
   font-size: 14px;
-  background: white;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .filters input {
@@ -209,53 +273,77 @@ tbody tr:hover {
   padding: 12px 16px;
   border: none;
   border-radius: 10px;
-  background: #2563eb;
+
+  background: rgba(37, 99, 235, 0.92);
   color: white;
+
   font-weight: 600;
   cursor: pointer;
+
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .filters button.secondary {
-  background: #e5e7eb;
+  background: rgba(229, 231, 235, 0.8);
   color: #172033;
 }
 
 .filters button:hover {
-  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
-.delete-button {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-  background-color: #dc2626;
-}
-.delete-button:active {
+.filters button:active {
   transform: scale(0.98);
 }
 
-.edit-button {
-  background-color: #2563eb;
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-button,
+.delete-button {
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+
   padding: 6px 12px;
+
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-left: 8px;
+
+  font-weight: 600;
+
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+
+.edit-button {
+  background: rgba(37, 99, 235, 0.92);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.16);
 }
 
 .edit-button:hover {
-  background-color: #1d4ed8;
+  background: #1d4ed8;
 }
-.edit-button:active {
+
+.delete-button {
+  background: rgba(239, 68, 68, 0.92);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.14);
+}
+
+.delete-button:hover {
+  background: #dc2626;
+}
+
+.edit-button:active,
+.delete-button:active {
   transform: scale(0.98);
 }
 
@@ -304,98 +392,111 @@ tbody tr:hover {
 
 .offer-link {
   display: inline-block;
-  background: #eff6ff;
+
+  background: rgba(239, 246, 255, 0.8);
   color: #1d4ed8;
+
   font-weight: 600;
   text-decoration: none;
+
   padding: 6px 10px;
   border-radius: 8px;
-}
 
-.offer-link:hover {
-  background: #dbeafe;
-}
+  border: 1px solid rgba(191, 219, 254, 0.6);
 
-.actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.edit-button,
-.delete-button {
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 12px;
-  cursor: pointer;
   transition:
-    background-color 0.3s ease,
+    background-color 0.2s ease,
     transform 0.1s ease;
 }
 
-.edit-button {
-  background: #2563eb;
-}
-
-.edit-button:hover {
-  background: #1d4ed8;
-}
-
-.delete-button {
-  background: #ef4444;
-}
-
-.delete-button:hover {
-  background: #dc2626;
-}
-
-.edit-button:active,
-.delete-button:active {
-  transform: scale(0.98);
+.offer-link:hover {
+  background: rgba(219, 234, 254, 0.95);
+  transform: translateY(-1px);
 }
 
 .success-message {
   margin-bottom: 18px;
   padding: 12px 16px;
-  border-radius: 8px;
-  background: #d1fae5;
+  border-radius: 10px;
+
+  background: rgba(209, 250, 229, 0.72);
   color: #065f46;
+
+  border: 1px solid rgba(167, 243, 208, 0.65);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   font-weight: 600;
 }
 
 .loading-message {
   margin-bottom: 18px;
   padding: 12px 16px;
-  background: #eff6ff;
+  border-radius: 10px;
+
+  background: rgba(239, 246, 255, 0.75);
   color: #1d4ed8;
-  border-radius: 8px;
+
+  border: 1px solid rgba(191, 219, 254, 0.65);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   font-weight: 600;
 }
 
 .error-message {
   margin-bottom: 18px;
   padding: 12px 16px;
-  background: #fee2e2;
+  border-radius: 10px;
+
+  background: rgba(254, 226, 226, 0.75);
   color: #991b1b;
-  border-radius: 8px;
+
+  border: 1px solid rgba(254, 202, 202, 0.7);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   font-weight: 600;
 }
 
-.new-application-button{
-  background-color: #2563eb;
+.new-application-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(37, 99, 235, 0.92);
   color: white;
-  border: none;
-  border-radius: 6px;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+
   padding: 10px 16px;
+
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
 }
 
 .new-application-button:hover {
-  background-color: #1d4ed8;
-} 
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.24);
+}
+
+.new-application-button:active {
+  transform: scale(0.98);
+}
 
 a {
   text-decoration: none;

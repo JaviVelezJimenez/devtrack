@@ -76,13 +76,36 @@
 }
 
 .back-link {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: #2563eb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  margin-top: 16px;
+  padding: 10px 14px;
+
+  background: #f1f5f9;
+  color: #334155;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .back-link:hover {
-  text-decoration: underline;
+  background: #e2e8f0;
+  color: #172033;
+  text-decoration: none;
+  transform: translateX(-2px);
+}
+
+.back-link:active {
+  transform: scale(0.98);
 }

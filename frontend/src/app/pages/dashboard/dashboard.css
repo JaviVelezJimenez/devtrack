@@ -382,3 +382,21 @@ tbody tr:hover {
   font-weight: 600;
 }
 
+.new-application-button{
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.new-application-button:hover {
+  background-color: #1d4ed8;
+} 
+
+a {
+  text-decoration: none;
+}
